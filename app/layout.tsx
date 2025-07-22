@@ -1,5 +1,4 @@
 'use client'
-import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import './globals.css'
@@ -7,8 +6,7 @@ import Providers from '@/components/providers'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ScrollProgress } from '@/components/magicui/scroll-progress'
-import { Loader, Loader2 } from 'lucide-react'
-import { LoaderFive, LoaderThree } from '@/components/ui/loader'
+import { LoaderFive } from '@/components/ui/loader'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -55,7 +53,7 @@ export default function RootLayout({
                   <Header />
                 </div>
                 {children}
-                <div className='fixed z-100 bottom-0 w-[90%] sm:hidden'>
+                <div className='fixed bottom-0 z-100 w-[90%] sm:hidden'>
                   <Header />
                 </div>
               </main>

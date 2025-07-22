@@ -5,8 +5,6 @@ import { ArrowBigDown } from 'lucide-react'
 import { Projects } from '@/components/projects'
 import { RiExternalLinkFill } from 'react-icons/ri'
 import Link from 'next/link'
-import { Contacts } from '@/components/contact'
-import PostsPage from './(pages)/posts/page'
 import { BlogPosts } from '@/components/post'
 
 export default function Home() {

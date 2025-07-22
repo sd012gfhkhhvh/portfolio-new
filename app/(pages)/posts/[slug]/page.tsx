@@ -1,5 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote-client/rsc'
-import { useMDXComponents } from '@/mdx-components'
+import { MDXComponent } from '@/mdx-components'
 import matter from 'gray-matter'
 import { getPost } from '@/lib/posts'
 import Link from 'next/link'
@@ -10,7 +9,6 @@ export default async function Page({
 }: {
   params: Promise<{ slug: string }>
 }) {
-  const overriddenComponents = useMDXComponents({})
   const { slug } = await params
   const post = await getPost(slug)
 
@@ -18,7 +16,7 @@ export default async function Page({
     return <div>Post not found</div>
   }
 
-  const { content, data } = matter(post)
+  const { content } = matter(post)
   return (
     <main>
       <div className='mb-6 text-lg sm:text-xl'>
@@ -31,7 +29,7 @@ export default async function Page({
           </span>
         </Link>
       </div>
-      <MDXRemote source={content} components={overriddenComponents} />
+      <MDXComponent source={content} />
     </main>
   )
 }

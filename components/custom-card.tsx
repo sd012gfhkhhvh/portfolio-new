@@ -1,13 +1,5 @@
 import { MagicCard } from './magicui/magic-card'
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Card } from './ui/card'
 import { useTheme } from 'next-themes'
 import React from 'react'
 

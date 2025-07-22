@@ -1,20 +1,19 @@
 'use client'
 import { WordRotate } from '@/components/magicui/word-rotate'
-import { useTheme } from 'next-themes'
 import { AnimatedShinyText } from '@/components/magicui/animated-shiny-text'
 import { DownloadIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { aboutData } from '@/lib/data/about'
 import { TypewriterEffect } from './ui/typewriter-effect'
 import { CustomBoxReveal } from './custom-boxreveal'
+import Image from 'next/image'
 
 export const Intro = () => {
-  const { theme } = useTheme()
   return (
     <>
       <section className='flex w-full items-center space-x-4 py-4 sm:flex-row sm:justify-start sm:space-x-6'>
         <CustomBoxReveal>
-          <img
+          <Image
             src='https://avatars.githubusercontent.com/u/91667720?v=4'
             className='h-20 w-20 rounded-full'
             alt='Soham Das'
@@ -23,7 +22,7 @@ export const Intro = () => {
         <CustomBoxReveal>
           <div className='text-left'>
             <h1 className='mb-1 flex items-end justify-start gap-2 text-2xl font-bold tracking-tight text-(--muted-foreground) sm:text-3xl'>
-              <span> Hi, I'm</span>
+              <span> Hi, I&lsquo;m</span>
               <TypewriterEffect
                 className=''
                 cursorClassName='bg-yellow-300'

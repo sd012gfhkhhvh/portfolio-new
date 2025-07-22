@@ -52,6 +52,7 @@ export async function getAllPosts({
 
     return result.slice(0, limit)
   } catch (err) {
+    console.error(err)
     return null
   }
 }
