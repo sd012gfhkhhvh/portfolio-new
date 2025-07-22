@@ -1,0 +1,62 @@
+---
+title: Understanding React Hooks
+author: Jane Doe
+image: https://picsum.photos/2000
+date: 2023-11-15
+tags:
+  - React
+  - JavaScript
+  - Web Development
+---
+
+# Understanding React Hooks
+
+React Hooks were introduced in **React 16.8** to bring the power of state and
+side effects to functional components—without the need for classes. They are
+special functions that let you “hook into” React features directly from function
+components.
+
+![React Hooks](https://picsum.photos/2000)
+
+---
+
+## 🚀 Why Hooks?
+
+Before Hooks, managing state and lifecycle logic in React required class
+components. Hooks solve multiple issues:
+
+- Code reuse was difficult between components (HOCs and render props became
+  messy).
+- Component logic was harder to organize and test.
+- Classes brought added complexity (binding, `this`, etc).
+
+With Hooks, you get:
+
+- **Cleaner and more readable code**
+- **Reusable logic via custom hooks**
+- **Better separation of concerns**
+
+---
+
+## 🔧 Basic Hooks
+
+React provides several built-in hooks. The most commonly used include:
+
+### 1. useState
+
+Adds state to a functional component.
+
+```jsx
+import React, { useState } from 'react'
+
+function Counter() {
+  const [count, setCount] = useState(0) // Initialize count with 0
+
+  return (
+    <div>
+      <h2>You clicked {count} times</h2>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  )
+}
+```
