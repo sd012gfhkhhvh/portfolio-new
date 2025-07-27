@@ -14,6 +14,8 @@ export const Intro = () => {
       <section className='flex w-full items-center space-x-4 py-4 sm:flex-row sm:justify-start sm:space-x-6'>
         <CustomBoxReveal>
           <Image
+            width={200}
+            height={200}
             src='https://avatars.githubusercontent.com/u/91667720?v=4'
             className='h-20 w-20 rounded-full'
             alt='Soham Das'

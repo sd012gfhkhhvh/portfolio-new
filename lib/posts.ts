@@ -10,6 +10,7 @@ export async function getPost(slug: string) {
     const content = await fs.readFile(filePath, 'utf-8')
     return content
   } catch (err) {
+    console.error(err)
     return null
   }
 }
@@ -31,7 +32,7 @@ export async function getAllPosts({
     let result: Post[] = await Promise.all(
       files.map(async file => {
         const filePath = path.join(rootPath, file)
-        const { data, content } = matter(await fs.readFile(filePath, 'utf-8'))
+        const { data } = matter(await fs.readFile(filePath, 'utf-8'))
         const stats = await fs.stat(filePath)
         const slug = file.replace('.mdx', '')
         return {

@@ -1,5 +1,4 @@
 'use client'
-import { useTheme } from 'next-themes'
 import { CustomCard } from './custom-card'
 import { useRouter } from 'next/navigation'
 import { Badge } from './ui/badge'
@@ -35,7 +34,6 @@ export const Projects = ({
   description?: boolean
   otherProjects?: boolean
 }) => {
-  const theme = useTheme()
   return (
     <main className='w-full py-4'>
       <CustomBoxReveal>

@@ -4,6 +4,9 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   /* config options here */
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [new URL('https://avatars.githubusercontent.com/u/**?v=4')]
+  },
   turbopack: {
     rules: {
       '*.mdx': {
@@ -16,7 +19,7 @@ const nextConfig: NextConfig = {
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
-  extension: /\.(md|mdx)$/,
+  extension: /\.(md|mdx)$/
 })
 
 // Merge MDX config with Next.js config

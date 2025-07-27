@@ -10,8 +10,6 @@ import {
   CollapsibleTrigger
 } from '@/components/ui/collapsible'
 import React, { useState } from 'react'
-import { BoxReveal } from './magicui/box-reveal'
-import { useTheme } from 'next-themes'
 import { Button } from './ui/button'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -30,7 +28,6 @@ export const WorkExperience = ({
   stack?: boolean
   showDetails?: boolean
 }) => {
-  const theme = useTheme()
   const searchParams = useSearchParams()
 
   let workId: string | number | null = searchParams.get('id')
@@ -104,7 +101,6 @@ export const WorkCard = ({
   showDetails?: boolean
 }) => {
   const router = useRouter()
-  const theme = useTheme()
   const [isOpen, setIsOpen] = useState(open)
 
   return (
@@ -229,26 +225,20 @@ export const WorkCard = ({
                   </div>
                 </CollapsibleTrigger>
                 <CollapsibleContent className='flex flex-col gap-2 text-(--muted-foreground)'>
-                  <BoxReveal
-                    boxColor={theme.theme === 'dark' ? '#27272A' : '#f5f5f5'}
-                    duration={0.2}
-                  >
+                  <CustomBoxReveal>
                     <div className='rounded-md bg-gradient-to-r from-white to-(--navbar-background) px-4 py-2 text-sm sm:text-base dark:from-neutral-900 dark:to-(--navbar-background)'>
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       In, debitis quaerat nostrum consectetur perferendis velit
                       quos quidem numquam fuga. Provident voluptate quis cum
                       dolorum dicta illo quia beatae officia nesciunt.
                     </div>
-                  </BoxReveal>
-                  <BoxReveal
-                    boxColor={theme.theme === 'dark' ? '#27272A' : '#f5f5f5'}
-                    duration={0.2}
-                  >
+                  </CustomBoxReveal>
+                  <CustomBoxReveal>
                     <div className='rounded-md bg-gradient-to-r from-white to-(--navbar-background) px-4 py-2 text-sm sm:text-base dark:from-neutral-900 dark:to-(--navbar-background)'>
                       Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                       Doloremque illum veritatis fugit unde, optio dolore
                     </div>
-                  </BoxReveal>
+                  </CustomBoxReveal>
                 </CollapsibleContent>
               </Collapsible>
             </section>
