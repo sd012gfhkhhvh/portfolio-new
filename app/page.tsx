@@ -26,15 +26,17 @@ export default function Home() {
             </Link>
           </div>
         </section>
-        <section className='mb-6 w-full text-center'>
+        <section className='mb-6 w-full'>
           <BlogPosts title='Recent Posts' limit={5} intro={false} />
-          <Link
-            href={'/posts'}
-            className='cursor-pointer text-sm text-(--muted-foreground) underline hover:text-(--foreground) sm:text-base'
-          >
-            Show more posts
-            <RiExternalLinkFill className='mx-1 inline' />
-          </Link>
+          <div className='flex justify-center'>
+            <Link
+              href={'/posts'}
+              className='cursor-pointer text-sm text-(--muted-foreground) underline hover:text-(--foreground) sm:text-base'
+            >
+              Show more posts
+              <RiExternalLinkFill className='mx-1 inline' />
+            </Link>
+          </div>
         </section>
         {/* <Contacts /> */}
         <svg className='size-6 animate-bounce'>
