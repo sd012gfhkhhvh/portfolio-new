@@ -53,7 +53,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             <div className='sticky top-40 z-40 flex max-w-xs flex-col items-center self-start'>
               <div className='absolute left-0 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-black'>
                 <BoxReveal
-                  boxColor={theme.theme === 'dark' ? '#27272A' : '#f5f5f5'}
+                  boxColor={theme.theme !== 'light' ? '#27272A' : '#f5f5f5'}
                   duration={0.5}
                 >
                   <div className='h-4 w-4 rounded-full border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-700' />
@@ -66,7 +66,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
             <div className='relative w-full pl-16 md:pl-10'>
               <BoxReveal
-                boxColor={theme.theme === 'dark' ? '#27272A' : '#f5f5f5'}
+                boxColor={theme.theme !== 'light' ? '#27272A' : '#f5f5f5'}
                 duration={0.5}
               >
                 <h3 className='mb-4 block text-left text-2xl font-bold text-neutral-500 dark:text-neutral-500'>

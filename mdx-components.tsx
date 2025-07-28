@@ -1,15 +1,20 @@
 import { MDXRemote } from 'next-mdx-remote-client/rsc'
-import type { MDXComponents } from 'mdx/types'
 import { highlight } from 'sugar-high'
-import { JSX } from 'react'
+import React, { JSX } from 'react'
 
 // This file allows you to provide custom React components
 // to be used in MDX files. You can import and use any
 // React component you want, including inline styles,
 // components from other libraries, and more.
 
-function Code({ children, ...props }: any) {
-  let codeHTML = highlight(children)
+function Code({
+  children,
+  ...props
+}: {
+  children: string
+  [key: string]: any
+}) {
+  const codeHTML = highlight(children)
   return <code {...props} dangerouslySetInnerHTML={{ __html: codeHTML }} />
 }
 

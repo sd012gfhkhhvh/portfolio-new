@@ -1,8 +1,7 @@
 import { MDXComponent } from '@/mdx-components'
 import matter from 'gray-matter'
 import { getPost } from '@/lib/posts'
-import Link from 'next/link'
-import { FaArrowLeft } from 'react-icons/fa'
+import { BackButton } from '@/components/back-button'
 
 export default async function Page({
   params
@@ -17,17 +16,11 @@ export default async function Page({
   }
 
   const { content } = matter(post)
+
   return (
     <main>
       <div className='mb-6 text-lg sm:text-xl'>
-        <Link
-          href={'/posts'}
-          className='cursor-pointer text-(--muted-foreground) no-underline hover:text-(--foreground) hover:underline'
-        >
-          <span>
-            <FaArrowLeft className='mr-1 inline text-sm sm:text-base' /> Back
-          </span>
-        </Link>
+        <BackButton />
       </div>
       <MDXComponent source={content} />
     </main>

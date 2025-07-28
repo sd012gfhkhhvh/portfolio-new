@@ -34,7 +34,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sparksRef = useRef<Spark[]>([])
   const startTimeRef = useRef<number | null>(null)
-  sparkColor = `${theme.theme === 'dark' ? '#fff' : '#000'}`
+  sparkColor = `${theme.theme !== 'light' ? '#fff' : '#000'}`
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return

@@ -23,7 +23,7 @@ export const Skills = () => {
         Skills
       </TextAnimate>{' '}
       <div
-        className={`relative overflow-hidden rounded-2xl ${!showMore ? `bg-gradient-to-b from-transparent ${theme.theme === 'dark' ? 'to-[#1c1c1f]' : 'to-[#f5f5f5]'}` : ''}`}
+        className={`relative overflow-hidden rounded-2xl ${!showMore ? `bg-gradient-to-b from-transparent ${theme.theme !== 'light' ? 'to-[#1c1c1f]' : 'to-[#f5f5f5]'}` : ''}`}
       >
         <div className='flex flex-wrap items-center gap-2 py-4'>
           {skillData

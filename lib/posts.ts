@@ -1,8 +1,15 @@
+'use server'
 import { promises as fs } from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
 const rootPath = path.join(process.cwd(), 'content', 'posts')
+
+export async function getServerSideProps() {
+  return {
+    props: {}
+  }
+}
 
 export async function getPost(slug: string) {
   try {

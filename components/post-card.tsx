@@ -5,28 +5,27 @@ import { CustomBoxReveal } from './custom-boxreveal'
 import { Post } from '@/lib/posts'
 
 export const BlogPostCard = ({ post }: { post: Post }) => {
-  console.log('posts', post)
-
   return (
-    <CustomBoxReveal>
-      <div className='flex items-center gap-2 text-sm sm:text-base'>
+    <CustomBoxReveal width={'100%'}>
+      <div className='grid grid-cols-1 space-y-1 sm:grid-cols-3 sm:space-y-0'>
         {/* date pyublished */}
-        <div className='text-(--muted-foreground)'>
+        <div className='col-span-1 text-(--muted-foreground)'>
           {post.metadata?.date.toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
-          })}{' '}
-          :
+          })}
         </div>
         {/* title */}
-        <Link
-          href={`/posts/${post.metadata.slug}`}
-          className='text-(--foreground) hover:underline'
-        >
-          <span>{post.metadata.title}</span>
-        </Link>
-        <RiExternalLinkFill className='ml-1 inline' />
+        <div className='col-span-2'>
+          <Link
+            href={`/posts/${post.metadata.slug}`}
+            className='text-(--foreground) hover:underline'
+          >
+            <span>{post.metadata.title}</span>
+          </Link>
+          <RiExternalLinkFill className='ml-1 inline' />
+        </div>
       </div>
     </CustomBoxReveal>
   )

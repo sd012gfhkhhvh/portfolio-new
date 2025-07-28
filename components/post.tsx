@@ -1,6 +1,7 @@
 import { getAllPosts } from '@/lib/posts'
 import { BoxReveal } from './magicui/box-reveal'
 import { BlogPostCard } from './post-card'
+import { CustomBoxReveal } from './custom-boxreveal'
 
 export const BlogPosts = async ({
   limit = 0,
@@ -14,19 +15,19 @@ export const BlogPosts = async ({
   const posts = await getAllPosts({ limit })
   return (
     <main className='w-full py-4'>
-      <BoxReveal>
+      <CustomBoxReveal>
         <h2 className='py-4 text-left text-xl font-semibold text-(--foreground) sm:text-2xl'>
           {title}
         </h2>
-      </BoxReveal>
+      </CustomBoxReveal>
       {/* intro */}
       {intro && (
-        <BoxReveal>
+        <CustomBoxReveal>
           <p className='py-2 text-left text-(--muted-foreground) sm:mx-auto sm:py-4 sm:text-lg'>
             I share my thoughts and insights on technology and personal
             development through my writing.
           </p>
-        </BoxReveal>
+        </CustomBoxReveal>
       )}
 
       <section className='flex flex-col gap-2 py-4'>

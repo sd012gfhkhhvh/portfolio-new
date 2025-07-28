@@ -9,7 +9,7 @@ export const CustomCard = ({ children }: { children: React.ReactNode }) => {
   return (
     <Card className='rounded-sm border-none p-0 shadow-none'>
       <MagicCard
-        gradientColor={theme.theme === 'dark' ? '#262626' : '#D9D9D955'}
+        gradientColor={theme.theme !== 'light' ? '#262626' : '#D9D9D955'}
         className='p-0'
       >
         <div className='p-4'>{children}</div>
