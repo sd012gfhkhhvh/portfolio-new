@@ -1,5 +1,4 @@
 import { getAllPosts } from '@/lib/posts'
-import { BoxReveal } from './magicui/box-reveal'
 import { BlogPostCard } from './post-card'
 import { CustomBoxReveal } from './custom-boxreveal'
 

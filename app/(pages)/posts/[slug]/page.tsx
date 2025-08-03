@@ -19,7 +19,7 @@ export default async function Page({
 
   return (
     <main>
-      <div className='mb-6 text-lg sm:text-xl'>
+      <div className='mt-6 mb-6 text-lg sm:mt-0 sm:text-xl'>
         <BackButton />
       </div>
       <MDXComponent source={content} />

@@ -55,24 +55,17 @@ export default function RootLayout({
     <html suppressHydrationWarning lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers>
-          {!isMounted ? (
+          {false ? (
             <div className='flex h-screen items-center justify-center'>
               {' '}
-              {/* <Loader className='animate-spin' />{' '} */}
               <LoaderFive text='Loading...' />
             </div>
           ) : (
             <div className='flex min-h-screen flex-col antialiased'>
               <main className='mx-auto w-[90%] grow md:w-[60%] lg:w-[40%]'>
-                <ScrollProgress />{' '}
-                <div className='hidden sm:block'>
-                  {' '}
-                  <Header />
-                </div>
+                <ScrollProgress />
+                <Header />
                 {children}
-                <div className='fixed bottom-0 z-100 w-[90%] sm:hidden'>
-                  <Header />
-                </div>
               </main>
               <Footer />
             </div>

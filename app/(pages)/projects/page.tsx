@@ -1,9 +1,9 @@
-import { Projects } from '@/components/projects'
+import { ProjectWrapper } from '@/components/project-wrapper'
 
-const ProjectsPage = () => {
+const ProjectsPage = async () => {
   return (
     <div>
-      <Projects />
+      <ProjectWrapper />
     </div>
   )
 }
