@@ -12,13 +12,15 @@ export default async function Home() {
     <>
       <div className='flex flex-col items-center justify-center pt-8 sm:pt-0'>
         <Intro />
-        <WorkExperience intro={false} stack={false} showDetails={false} />
+        <WorkExperience showIntro={false} showStack={false} showDetails={false} />
         <Skills />
         <section className='w-full'>
           <ProjectWrapper
             otherProjects={false}
-            intro={false}
-            description={false}
+            showIntro={false}
+            showDescription={false}
+            showStack={true}
+            showHighlight={false}
           />
           <div className='flex justify-center'>
             <Link

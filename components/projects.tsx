@@ -1,23 +1,37 @@
+import { getProjects } from '@/lib/data/project'
 import { OtherProjects } from './other-projects'
 import { ProjectCard } from './project-card'
 
 export const Projects = async ({
-  stack = true,
-  description = true,
+  showStack = true,
+  showDescription = true,
+  showHighlight = true,
   otherProjects = true
 }: {
-  stack?: boolean
-  description?: boolean
+  showStack?: boolean
+  showDescription?: boolean
+  showHighlight?: boolean
   otherProjects?: boolean
 }) => {
-  // fetch projects
-  await new Promise(resolve => setTimeout(resolve, 4000))
+  const projects = await getProjects()
+
+  if (!projects) {
+    return <div>Projects not found!</div>
+  }
+
   return (
     <div>
       {/* Project card */}
       <section className='grid grid-cols-1 gap-4'>
-        {[1, 2].map((project, index) => (
-          <ProjectCard key={index} stack={stack} description={description} />
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={index}
+            id={index + 1}
+            showStack={showStack}
+            showDescription={showDescription}
+            showHighlight={showHighlight}
+            project={project}
+          />
         ))}
       </section>
       {/* other projects */}

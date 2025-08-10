@@ -1,35 +1,37 @@
 import { Suspense } from 'react'
 import { CustomBoxReveal } from './custom-boxreveal'
 import { CustomTimelineComponent } from './custom-timeline'
+import { getWorkExperienceMetadata } from '@/lib/data/work'
 
 export const WorkExperience = async ({
   workId = -1,
-  intro = true,
-  description = true,
-  stack = true,
+  showIntro = true,
+  showDescription = true,
+  showStack = true,
   showDetails = true
 }: {
   workId?: number
-  intro?: boolean
-  description?: boolean
-  stack?: boolean
+  showIntro?: boolean
+  showDescription?: boolean
+  showStack?: boolean
   showDetails?: boolean
 }) => {
+  const { title: workTitle, description: workDescription } =
+    await getWorkExperienceMetadata()
+    
   return (
     <div className='w-full py-4'>
       <CustomBoxReveal>
         <h2 className='py-4 text-left text-xl font-semibold sm:text-2xl'>
-          Employment History
+          {workTitle}
         </h2>
       </CustomBoxReveal>
 
       {/* intro */}
-      {intro && (
+      {showIntro && (
         <CustomBoxReveal>
           <p className='sm:max-w- py-2 text-left text-(--muted-foreground) sm:mx-auto sm:py-4 sm:text-lg'>
-            I have been fortunate to work with some amazing teams. I have worked
-            mostly with startups but also with some large enterprises. Here is a
-            brief overview of my employment history.
+            {workDescription}
           </p>
         </CustomBoxReveal>
       )}
@@ -38,8 +40,8 @@ export const WorkExperience = async ({
       <Suspense fallback={<div>Loading...</div>}>
         <CustomTimelineComponent
           workId={workId}
-          description={description}
-          stack={stack}
+          showDescription={showDescription}
+          showStack={showStack}
           showDetails={showDetails}
         />
       </Suspense>

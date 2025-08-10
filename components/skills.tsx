@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { useTheme } from 'next-themes'
 import { TextAnimate } from './magicui/text-animate'
 import { CustomBoxReveal } from './custom-boxreveal'
+import { ProgressiveBlur } from '@/components/magicui/progressive-blur'
 
 export const Skills = () => {
   const minimumSkillsToShow = skillData.length / 2
-  const theme = useTheme()
   const [showMore, setShowMore] = useState<boolean>(false)
 
   return (
@@ -22,10 +22,10 @@ export const Skills = () => {
       >
         Skills
       </TextAnimate>{' '}
-      <div
-        className={`relative overflow-hidden rounded-2xl ${!showMore ? `bg-gradient-to-b from-transparent ${theme.theme !== 'light' ? 'to-[#1c1c1f]' : 'to-[#f5f5f5]'}` : ''}`}
-      >
-        <div className='flex flex-wrap items-center gap-2 py-4'>
+      <section className='py-4'>
+        <div
+          className={`relative flex ${showMore ? 'h-full' : 'h-[220px] sm:h-[160px]'} w-full flex-wrap items-center gap-2`}
+        >
           {skillData
             .map((skill, index) => (
               <CustomBoxReveal key={index} duration={index * 0.1}>
@@ -52,10 +52,15 @@ export const Skills = () => {
                 </CustomBoxReveal>
               ))
               .slice(minimumSkillsToShow)}
+          <ProgressiveBlur
+            height='30%'
+            position='bottom'
+            className={`${showMore ? 'opacity-0' : ''}`}
+          />
         </div>
-      </div>
+      </section>
       <CustomBoxReveal width='100%'>
-        <p className='text-center text-sm text-(--muted-foreground)'>
+        <p className='mt-2 text-center text-sm text-(--muted-foreground)'>
           <span
             className='hover:text-primary underline hover:cursor-pointer'
             onClick={() => setShowMore(showMore === true ? false : true)}

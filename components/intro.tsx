@@ -1,14 +1,16 @@
-'use client'
 import { WordRotate } from '@/components/magicui/word-rotate'
 import { AnimatedShinyText } from '@/components/magicui/animated-shiny-text'
 import { DownloadIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { aboutData } from '@/lib/data/about'
+import { getIntro } from '@/lib/data/intro'
 import { TypewriterEffect } from './ui/typewriter-effect'
 import { CustomBoxReveal } from './custom-boxreveal'
 import Image from 'next/image'
+import Link from 'next/link'
 
-export const Intro = () => {
+export const Intro = async () => {
+  const intro = await getIntro()
+
   return (
     <>
       <section className='flex w-full items-center space-x-4 py-4 sm:flex-row sm:justify-start sm:space-x-6'>
@@ -54,9 +56,10 @@ export const Intro = () => {
       {/* resume button */}
       <section className='pb-3 text-center text-(--muted-foreground)'>
         <CustomBoxReveal>
-          <div
+          <Link
+            href={'/resume.pdf'}
+            target='_blank'
             className='z-10 flex items-center justify-center'
-            onClick={() => window.open('/resume.pdf', '_blank')}
           >
             <div
               className={cn(
@@ -68,13 +71,13 @@ export const Intro = () => {
                 <DownloadIcon className='ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5' />
               </AnimatedShinyText>
             </div>
-          </div>
+          </Link>
         </CustomBoxReveal>
       </section>
 
       {/* About section */}
       <section className='space-y-4 text-left text-(--muted-foreground) sm:mx-auto sm:max-w-2xl sm:py-4 sm:text-lg'>
-        {aboutData.map((item, index) => (
+        {intro.map((item, index) => (
           <CustomBoxReveal key={index} duration={(index + 1) * 0.1}>
             <p key={index}>{item}</p>
           </CustomBoxReveal>

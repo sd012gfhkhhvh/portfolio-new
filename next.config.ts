@@ -4,8 +4,12 @@ import createMDX from '@next/mdx'
 const nextConfig: NextConfig = {
   /* config options here */
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  reactStrictMode: false,
   images: {
-    remotePatterns: [new URL('https://avatars.githubusercontent.com/u/**?v=4')]
+    remotePatterns: [
+      new URL('https://avatars.githubusercontent.com/u/**?v=4'),
+      new URL('http://localhost:1337/**')
+    ]
   },
   turbopack: {
     rules: {

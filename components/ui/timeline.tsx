@@ -10,6 +10,7 @@ import { BoxReveal } from '../magicui/box-reveal'
 import { useTheme } from 'next-themes'
 
 interface TimelineEntry {
+  id: number
   title: string
   content: React.ReactNode
 }
@@ -49,7 +50,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
       <div ref={ref} className='relative mx-auto max-w-7xl pb-10'>
         {data.map((item, index) => (
-          <div key={index} className='flex justify-start pt-10 md:gap-10'>
+          <div
+            id={`experience-${item.id}`}
+            key={index}
+            className='flex justify-start pt-10 md:gap-10'
+          >
             <div className='sticky top-40 z-40 flex max-w-xs flex-col items-center self-start'>
               <div className='absolute left-0 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-black'>
                 <BoxReveal

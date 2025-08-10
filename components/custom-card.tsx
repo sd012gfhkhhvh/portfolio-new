@@ -1,3 +1,4 @@
+'use client'
 import { MagicCard } from './magicui/magic-card'
 import { Card } from './ui/card'
 import { useTheme } from 'next-themes'

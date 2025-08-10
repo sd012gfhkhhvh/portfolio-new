@@ -55,7 +55,7 @@ export default function RootLayout({
     <html suppressHydrationWarning lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers>
-          {false ? (
+          {!isMounted ? (
             <div className='flex h-screen items-center justify-center'>
               {' '}
               <LoaderFive text='Loading...' />
