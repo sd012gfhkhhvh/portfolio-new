@@ -2,7 +2,7 @@ import { WordRotate } from '@/components/magicui/word-rotate'
 import { AnimatedShinyText } from '@/components/magicui/animated-shiny-text'
 import { DownloadIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { getIntro } from '@/lib/data/intro'
+import { getIntro, getResume } from '@/lib/data/intro'
 import { TypewriterEffect } from './ui/typewriter-effect'
 import { CustomBoxReveal } from './custom-boxreveal'
 import Image from 'next/image'
@@ -10,6 +10,11 @@ import Link from 'next/link'
 
 export const Intro = async () => {
   const intro = await getIntro()
+  const resume = await getResume()
+
+  if (!intro || !resume) {
+    return null
+  }
 
   return (
     <>
@@ -57,7 +62,7 @@ export const Intro = async () => {
       <section className='pb-3 text-center text-(--muted-foreground)'>
         <CustomBoxReveal>
           <Link
-            href={'/resume.pdf'}
+            href={resume.src}
             target='_blank'
             className='z-10 flex items-center justify-center'
           >
@@ -67,7 +72,7 @@ export const Intro = async () => {
               )}
             >
               <AnimatedShinyText className='inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400'>
-                <span>✨ Hiring? Check out my resume</span>
+                <span>✨ {resume.text}</span>
                 <DownloadIcon className='ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5' />
               </AnimatedShinyText>
             </div>

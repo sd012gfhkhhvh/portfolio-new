@@ -3,7 +3,7 @@ import { BlogPostCard } from './post-card'
 import { CustomBoxReveal } from './custom-boxreveal'
 
 export const BlogPosts = async ({
-  limit = 0,
+  limit = 10,
   intro = true,
   title = 'Posts'
 }: {
@@ -12,6 +12,7 @@ export const BlogPosts = async ({
   title: string
 }) => {
   const posts = await getAllPosts({ limit })
+  
   return (
     <main className='w-full py-4'>
       <CustomBoxReveal>

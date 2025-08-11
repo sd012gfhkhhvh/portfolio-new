@@ -24,13 +24,24 @@ ridiculus mus. Duis at vehicula justo. Nulla facilisi. In hac
 habitasse platea dictumst.`
 ]
 
-const endpoint = `${process.env.BASE_API_ENDPOINT}/intro`
+export type Resume = {
+  text: string
+  src: string
+}
+
+export const defaultResumeData: Resume = {
+  text: 'Hiring? Check out my resume',
+  src: '/resume.pdf'
+}
+
+const BASE_API_ENDPOINT = `${process.env.BASE_API_ENDPOINT}`
 
 export const getIntro = async (): Promise<About> => {
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(BASE_API_ENDPOINT + '/intro', {
       next: { revalidate: 60 }
     })
+
     if (response.status !== 200) {
       return defaultIntroData
     }
@@ -48,3 +59,26 @@ export const getIntro = async (): Promise<About> => {
   }
 }
 
+export const getResume = async (): Promise<Resume> => {
+  try {
+    const response = await fetch(BASE_API_ENDPOINT + '/resume?populate=*', {
+      next: { revalidate: 60 }
+    })
+
+    if (response.status !== 200) {
+      return defaultResumeData
+    }
+
+    const { data } = await response.json()
+
+    return {
+      text: data?.text || defaultResumeData.text,
+      src: data?.resume_file?.url
+        ? process.env.BASE_URI + data?.resume_file?.url
+        : defaultResumeData.src
+    }
+  } catch (err) {
+    console.error(err)
+    return defaultResumeData
+  }
+}

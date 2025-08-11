@@ -12,7 +12,11 @@ export default async function Home() {
     <>
       <div className='flex flex-col items-center justify-center pt-8 sm:pt-0'>
         <Intro />
-        <WorkExperience showIntro={false} showStack={false} showDetails={false} />
+        <WorkExperience
+          showIntro={false}
+          showStack={false}
+          showDetails={false}
+        />
         <Skills />
         <section className='w-full'>
           <ProjectWrapper

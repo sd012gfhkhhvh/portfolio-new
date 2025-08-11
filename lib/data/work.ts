@@ -62,7 +62,7 @@ export const defaultWorkExperiences: WORK_EXPERIENCES = [
   },
   {
     role: 'Software Engineering Intern',
-    timelineTitle: 'Mid 2022 - Software Engineering Intern @ CS FOR ALL',
+    timelineTitle: 'Mid 2022',
     company: {
       name: 'CS FOR ALL',
     },

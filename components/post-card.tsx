@@ -5,6 +5,7 @@ import { CustomBoxReveal } from './custom-boxreveal'
 import { Post } from '@/lib/posts'
 
 export const BlogPostCard = ({ post }: { post: Post }) => {
+  
   return (
     <CustomBoxReveal width={'100%'}>
       <div className='grid grid-cols-1 space-y-1 sm:grid-cols-3 sm:space-y-0'>
