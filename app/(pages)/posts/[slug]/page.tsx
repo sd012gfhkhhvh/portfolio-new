@@ -1,5 +1,5 @@
 import { MDXComponent } from '@/mdx-components'
-import { getPost } from '@/lib/posts'
+import { getPost } from '@/lib/data/post'
 import { BackButton } from '@/components/back-button'
 
 export default async function Page({
@@ -9,17 +9,17 @@ export default async function Page({
 }) {
   const { slug } = await params
   const post = await getPost(slug)
-  
+
   if (!post) {
     return <div>Post not found</div>
   }
 
   return (
-    <main>
+    <div>
       <div className='mt-6 mb-6 text-lg sm:mt-0 sm:text-xl'>
         <BackButton />
       </div>
       <MDXComponent source={post} />
-    </main>
+    </div>
   )
 }

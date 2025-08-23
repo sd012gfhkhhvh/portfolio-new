@@ -34,7 +34,7 @@ export const ProjectCard = ({
           className='grid grid-flow-col-dense items-center gap-2 py-2'
         >
           {/* peoject title */}
-          <h2 className='text-base font-medium text-(--foreground) sm:text-lg'>
+          <h2 className='text-base text-(--foreground) sm:text-lg'>
             {project.title}
             {' - '}
             {project.shortDescription}

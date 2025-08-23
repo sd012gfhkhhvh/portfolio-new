@@ -7,6 +7,7 @@ import { TypewriterEffect } from './ui/typewriter-effect'
 import { CustomBoxReveal } from './custom-boxreveal'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ImgLoader } from './image-loader'
 
 export const Intro = async () => {
   const intro = await getIntro()
@@ -19,15 +20,22 @@ export const Intro = async () => {
   return (
     <>
       <section className='flex w-full items-center space-x-4 py-4 sm:flex-row sm:justify-start sm:space-x-6'>
-        <CustomBoxReveal>
-          <Image
+        {/* <CustomBoxReveal> */}
+          {/* <Image
             width={200}
             height={200}
             src='https://avatars.githubusercontent.com/u/91667720?v=4'
             className='h-20 w-20 rounded-full'
             alt='Soham Das'
+          /> */}
+          <ImgLoader
+            width={200}
+            height={200}
+            src='https://avatars.githubusercontent.com/u/91667720?v=4'
+            className='h-20 w-20 rounded-full my-0'
+            alt='Soham Das'
           />
-        </CustomBoxReveal>
+        {/* </CustomBoxReveal> */}
         <CustomBoxReveal>
           <div className='text-left'>
             <h1 className='mb-1 flex items-end justify-start gap-2 text-2xl font-bold tracking-tight text-(--muted-foreground) sm:text-3xl'>

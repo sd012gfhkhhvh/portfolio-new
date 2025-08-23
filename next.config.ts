@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       new URL('https://avatars.githubusercontent.com/u/**?v=4'),
-      new URL('http://localhost:1337/**')
+      new URL('http://localhost:1337/**'),
+      new URL('https://picsum.photos/**')
     ]
   },
   turbopack: {

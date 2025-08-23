@@ -2,15 +2,14 @@
 import Link from 'next/link'
 import { RiExternalLinkFill } from 'react-icons/ri'
 import { CustomBoxReveal } from './custom-boxreveal'
-import { Post } from '@/lib/posts'
+import { Post } from '@/lib/data/post'
 
 export const BlogPostCard = ({ post }: { post: Post }) => {
-  
   return (
     <CustomBoxReveal width={'100%'}>
       <div className='grid grid-cols-1 space-y-1 sm:grid-cols-3 sm:space-y-0'>
         {/* date pyublished */}
-        <div className='col-span-1 text-(--muted-foreground)'>
+        <div className='col-span-1 text-sm text-(--muted-foreground) sm:text-base'>
           {post.metadata?.date.toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',

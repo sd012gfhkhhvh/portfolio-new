@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts'
+import { getAllPosts } from '@/lib/data/post'
 import { BlogPostCard } from './post-card'
 import { CustomBoxReveal } from './custom-boxreveal'
 
