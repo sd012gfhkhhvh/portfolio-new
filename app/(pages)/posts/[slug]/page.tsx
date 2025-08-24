@@ -1,10 +1,20 @@
 import { MDXComponent } from '@/mdx-components'
-import { getPost } from '@/lib/data/post'
+import { getAllPosts, getPost } from '@/lib/data/post'
 import { BackButton } from '@/components/back-button'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, User, Clock, Tag } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { ImgLoader } from '@/components/image-loader'
+
+export const generateStaticParams = async () => {
+  // Fetch all posts to generate static paths
+  const posts = await getAllPosts({ limit: 10 })
+  if (!posts) return []
+
+  return posts.map(post => ({
+    slug: post.slug
+  }))
+}
 
 export default async function Page({
   params
