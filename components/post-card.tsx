@@ -2,27 +2,24 @@
 import Link from 'next/link'
 import { RiExternalLinkFill } from 'react-icons/ri'
 import { CustomBoxReveal } from './custom-boxreveal'
-import { Post } from '@/lib/data/post'
+import { POST_METADATA } from '@/lib/types'
+import { formatDate } from '@/lib/utils'
 
-export const BlogPostCard = ({ post }: { post: Post }) => {
+export const BlogPostCard = ({ metadata }: { metadata: POST_METADATA }) => {
   return (
     <CustomBoxReveal width={'100%'}>
       <div className='grid grid-cols-1 space-y-1 sm:grid-cols-3 sm:space-y-0'>
-        {/* date pyublished */}
+        {/* date published */}
         <div className='col-span-1 text-sm text-(--muted-foreground) sm:text-base'>
-          {post.metadata?.date.toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}
+          {formatDate(metadata.date)}
         </div>
         {/* title */}
         <div className='col-span-2'>
           <Link
-            href={`/posts/${post.metadata.slug}`}
+            href={`/posts/${metadata.slug}`}
             className='text-(--foreground) hover:underline'
           >
-            <span>{post.metadata.title}</span>
+            <span>{metadata.title}</span>
           </Link>
           <RiExternalLinkFill className='ml-1 inline' />
         </div>

@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button as HeroButton,
   useDisclosure
 } from '@heroui/react'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ import {
 } from '@/components/ui/collapsible'
 import React, { useState } from 'react'
 import { Button } from './ui/button'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import ClickSpark from './ui/custom/click-spark'
 import { CustomBoxReveal } from './custom-boxreveal'
@@ -31,11 +30,11 @@ interface WORK_CARD extends Omit<WORK, 'timelineTitle'> {
   showDescription?: boolean
   showStack?: boolean
   showDetails?: boolean
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export const WorkCard = ({
   id = -1,
-  open = false,
   showDescription = true,
   showStack = true,
   showDetails = true,
@@ -49,6 +48,10 @@ export const WorkCard = ({
   stack,
   contributions
 }: WORK_CARD) => {
+  const searchParams = useSearchParams()
+  const currentId = searchParams.get('id')
+  const open = currentId ? parseInt(currentId) === id : false
+
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(open)
 

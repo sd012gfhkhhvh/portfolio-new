@@ -4,13 +4,11 @@ import { CustomTimelineComponent } from './custom-timeline'
 import { getWorkExperienceMetadata } from '@/lib/data/work'
 
 export const WorkExperience = async ({
-  workId = -1,
   showIntro = true,
   showDescription = true,
   showStack = true,
   showDetails = true
 }: {
-  workId?: number
   showIntro?: boolean
   showDescription?: boolean
   showStack?: boolean
@@ -39,7 +37,6 @@ export const WorkExperience = async ({
       {/* WorkExperience */}
       <Suspense fallback={<div>Loading...</div>}>
         <CustomTimelineComponent
-          workId={workId}
           showDescription={showDescription}
           showStack={showStack}
           showDetails={showDetails}

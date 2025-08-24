@@ -3,12 +3,10 @@ import { Timeline } from './ui/timeline'
 import { WorkCard } from './work-card'
 
 export const CustomTimelineComponent = async ({
-  workId,
   showDescription,
   showStack,
   showDetails
 }: {
-  workId?: number
   showDescription?: boolean
   showStack?: boolean
   showDetails?: boolean
@@ -26,7 +24,6 @@ export const CustomTimelineComponent = async ({
       content: (
         <WorkCard
           id={index + 1}
-          open={index + 1 === workId}
           showDescription={showDescription}
           showStack={showStack}
           showDetails={showDetails}

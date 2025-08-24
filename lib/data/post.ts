@@ -1,21 +1,25 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { generateMetaData, slugify } from '../utils'
+import { POST, POST_SOURCE, POST_METADATA, POST_METADATA_LIST } from '../types'
+
+// Ensure this module only runs on the server
+if (typeof window !== 'undefined') {
+  throw new Error('This module can only be used on the server side')
+}
 
 const rootPath = path.join(process.cwd(), 'content', 'posts')
-
-// export async function getServerSideProps() {
-//   return {
-//     props: {}
-//   }
-// }
-
 const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT
+const fileSlugMap = new Map<string, string>()
 
-export async function fetchPostFromCrm(slug: string): Promise<string> {
+export async function fetchPostFromCrm(slug: string): Promise<POST> {
   try {
     const response = await fetch(
-      BASE_API_ENDPOINT + `/posts?filters[slug][$eq]=${slug}&populate=*`
+      BASE_API_ENDPOINT + `/posts?filters[slug][$eq]=${slug}&populate=*`,
+      {
+        next: { revalidate: 60 }
+      }
     )
 
     if (!response.ok) {
@@ -33,19 +37,45 @@ export async function fetchPostFromCrm(slug: string): Promise<string> {
       throw new Error('Post content not found')
     }
 
-    return content
+    const postMetadata = generateMetaData(POST_SOURCE.CRM, data[0])
+
+    return { content, metadata: postMetadata }
   } catch (err: any) {
     console.error(`Failed to fetch post: ${err.message}`)
     throw err
   }
 }
 
-export async function getPostFromFile(slug: string): Promise<string> {
+export async function getPostFromFile(slug: string): Promise<POST> {
   try {
-    const filePath = path.join(rootPath, `${slug}.mdx`)
+    // Populate the map if it's empty
+    if (fileSlugMap.size === 0) {
+      const files = await fs.readdir(rootPath)
+      files.forEach(file => {
+        const fileSlug = slugify(file.replace('.mdx', ''))
+        fileSlugMap.set(fileSlug, file)
+      })
+    }
+
+    const fileName = fileSlugMap.get(slug)
+
+    if (!fileName) {
+      throw new Error(`Post not found: ${slug}`)
+    }
+
+    const filePath = path.join(rootPath, `${fileName}`)
     const post = await fs.readFile(filePath, 'utf-8')
-    const { content } = matter(post) // extract the content from the markdown instead of frontmatter
-    return content
+    const { content, data } = matter(post) // extract the content from the markdown instead of frontmatter
+
+    const stats = await fs.stat(filePath)
+
+    const postMetadata = generateMetaData(POST_SOURCE.FILE, {
+      slug,
+      stats,
+      ...data
+    })
+
+    return { content, metadata: postMetadata }
   } catch (err: any) {
     if (err.code === 'ENOENT') {
       console.error(`Post not found: ${slug}`)
@@ -57,7 +87,7 @@ export async function getPostFromFile(slug: string): Promise<string> {
   }
 }
 
-export async function getPost(slug: string): Promise<string | null> {
+export async function getPost(slug: string): Promise<POST | null> {
   try {
     const postFromCrm = await fetchPostFromCrm(slug)
     if (postFromCrm) {
@@ -75,24 +105,20 @@ export async function getPost(slug: string): Promise<string | null> {
   }
 }
 
-export type Post = {
-  metadata: { [key: string]: any }
-  fileUpdateDate: Date
-}
-
-export type Posts = Post[]
-
 export async function fetchALlPostsFromCrm({
   start = 0,
   limit = 10
 }: {
   start?: number
   limit?: number
-}): Promise<Posts> {
+}): Promise<POST_METADATA_LIST> {
   try {
     const response = await fetch(
       BASE_API_ENDPOINT +
-        `/posts?pagination[start]=0&pagination[limit]=${limit}&populate=*`
+        `/posts?pagination[start]=0&pagination[limit]=${limit}&populate=*`,
+      {
+        next: { revalidate: 60 }
+      }
     )
 
     if (response.status !== 200) {
@@ -105,16 +131,7 @@ export async function fetchALlPostsFromCrm({
     const { data } = await response.json()
 
     const posts = data.map((post: any, index: number) => {
-      return {
-        metadata: {
-          title: post?.title,
-          slug: post?.slug,
-          author: post?.author,
-          date: new Date(post?.publishDate),
-          tags: post?.tags?.split(',').map((tag: string) => tag.trim())
-        },
-        fileUpdateDate: new Date(post.updatedAt)
-      }
+      return generateMetaData(POST_SOURCE.CRM, post)
     })
 
     return posts
@@ -130,7 +147,7 @@ export async function getAllPostsFromFile({
 }: {
   start?: number
   limit?: number
-}): Promise<Posts> {
+}): Promise<POST_METADATA_LIST> {
   try {
     const files = await fs.readdir(rootPath)
     const result = await Promise.all(
@@ -138,18 +155,23 @@ export async function getAllPostsFromFile({
         const filePath = path.join(rootPath, file)
         const { data } = matter(await fs.readFile(filePath, 'utf-8'))
         const stats = await fs.stat(filePath)
-        const slug = file.replace('.mdx', '')
-        return {
-          metadata: { ...data, slug: slug },
-          fileUpdateDate: stats.mtime
-        }
+        const slug = slugify(file.replace('.mdx', ''))
+
+        fileSlugMap.set(slug, file) // Cache the slug for later use
+
+        const rawPostMetadata = { slug, stats, ...data } // Ensure slug is part of data
+
+        return generateMetaData(POST_SOURCE.FILE, rawPostMetadata)
       })
     )
 
-    // Filter out null values and sort according to the file modified date
+    // Filter out null values and sort according to the publish date
     return result
-      .filter(post => post !== null)
-      .sort((a, b) => b.fileUpdateDate.getTime() - a.fileUpdateDate.getTime())
+      .filter((post: POST_METADATA | null) => post !== null)
+      .sort(
+        (a: POST_METADATA, b: POST_METADATA) =>
+          b.date.getTime() - a.date.getTime()
+      )
       .slice(0, limit)
   } catch (err) {
     console.error(err)
@@ -163,7 +185,7 @@ export async function getAllPosts({
 }: {
   start?: number
   limit?: number
-}): Promise<Posts | null> {
+}): Promise<POST_METADATA_LIST | null> {
   try {
     const postsFromCrm = await fetchALlPostsFromCrm({ limit })
     if (postsFromCrm.length > 0) {

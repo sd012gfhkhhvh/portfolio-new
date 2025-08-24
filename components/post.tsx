@@ -11,7 +11,7 @@ export const BlogPosts = async ({
   intro?: boolean
   title: string
 }) => {
-  const posts = await getAllPosts({ limit })
+  const postMetadataList = await getAllPosts({ limit })
   
   return (
     <main className='w-full py-4'>
@@ -31,9 +31,9 @@ export const BlogPosts = async ({
       )}
 
       <section className='flex flex-col gap-2 py-4'>
-        {posts ? (
-          posts.map(post => (
-            <BlogPostCard key={post.metadata.slug} post={post} />
+        {postMetadataList ? (
+          postMetadataList.map(metadata => (
+            <BlogPostCard key={metadata.slug} metadata={metadata} />
           ))
         ) : (
           <NoPostFound />
