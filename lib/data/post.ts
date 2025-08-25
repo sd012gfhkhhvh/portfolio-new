@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { generateMetaData, slugify } from '../utils'
-import { POST, POST_SOURCE, POST_METADATA, POST_METADATA_LIST } from '../types'
+import { POST, POST_SOURCE, POST_METADATA_LIST } from '../types'
 
 // Ensure this module only runs on the server
 if (typeof window !== 'undefined') {
@@ -166,13 +166,7 @@ export async function getAllPostsFromFile({
     )
 
     // Filter out null values and sort according to the publish date
-    return result
-      .filter((post: POST_METADATA | null) => post !== null)
-      .sort(
-        (a: POST_METADATA, b: POST_METADATA) =>
-          b.date.getTime() - a.date.getTime()
-      )
-      .slice(0, limit)
+    return result.slice(start, start + limit)
   } catch (err) {
     console.error(err)
     throw err
@@ -187,18 +181,27 @@ export async function getAllPosts({
   limit?: number
 }): Promise<POST_METADATA_LIST | null> {
   try {
-    const postsFromCrm = await fetchALlPostsFromCrm({ limit })
-    if (postsFromCrm.length > 0) {
-      return postsFromCrm
-    }
-  } catch (err: any) {
-    console.error(`Failed to fetch posts from CRM: ${err.message}`)
-  }
+    const [crmResult, fileResult] = await Promise.allSettled([
+      fetchALlPostsFromCrm({ start, limit }),
+      getAllPostsFromFile({ start, limit })
+    ])
 
-  try {
-    return await getAllPostsFromFile({ limit })
+    let posts: POST_METADATA_LIST = []
+
+    if (crmResult.status === 'fulfilled' && crmResult.value.length) {
+      posts = crmResult.value
+    } else if (fileResult.status === 'fulfilled' && fileResult.value.length) {
+      posts = fileResult.value
+    }
+
+    if (posts.length) {
+      posts.sort((a, b) => b.date.getTime() - a.date.getTime())
+      return posts
+    }
+
+    return null
   } catch (err: any) {
-    console.error(`Failed to fetch posts from file: ${err.message}`)
+    console.error(`Failed to fetch posts: ${err.message}`)
     return null
   }
 }
