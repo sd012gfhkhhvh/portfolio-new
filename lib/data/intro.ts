@@ -9,19 +9,9 @@ type Paragraph = {
 }
 
 export const defaultIntroData: About = [
-  ` I am always looking for new challenges and opportunities to grow as a
-web developer.`,
-  ` In my free time, I enjoy playing the guitar, watching movies, and
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit
-amet nulla auctor, vestibulum magna sed, convallis ex. Cum sociis
-natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Duis at vehicula justo. Nulla facilisi. In hac
-habitasse platea dictumst.`,
-  ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
-nulla auctor, vestibulum magna sed, convallis ex. Cum sociis
-natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus. Duis at vehicula justo. Nulla facilisi. In hac
-habitasse platea dictumst.`
+  `I am a Full Stack Developer based in Kolkata, India, with experience building scalable web applications, cloud-native systems, and AI-powered tools. I specialize in React, Next.js, Node.js, Laravel, Docker, and AWS, with a strong foundation in both frontend and backend engineering.`,
+  `I’ve worked at VortexWeb, where I built a property listing engine, automated CRM workflows, and deployed analytics dashboards on AWS, and at CS FOR ALL, where I developed a microservices-based LMS serving 5K+ users with production-grade reliability.`,
+  `Beyond work, I’ve created projects like Artify (AI SaaS for image transformation), Envision (voice-controlled AR app), and Peer.AI (AI accessibility Chrome extension). I’ve also been a Smart India Hackathon runner-up and a mentor at JWOC, contributing actively to the open-source community.`
 ]
 
 export type Resume = {

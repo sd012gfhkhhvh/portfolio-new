@@ -13,6 +13,41 @@ const rootPath = path.join(process.cwd(), 'content', 'posts')
 const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT
 const fileSlugMap = new Map<string, string>()
 
+type POST_HEADER_DATA = {
+  title: string
+  description: string
+}
+
+const defaultPostHeaderData: POST_HEADER_DATA = {
+  title: 'Posts',
+  description:
+    'I share my thoughts and insights on technology and personal development through my writing.'
+}
+
+export async function getPostHeaderData(): Promise<POST_HEADER_DATA> {
+  try {
+    const response = await fetch(`${BASE_API_ENDPOINT}/post-header`, {
+      next: { revalidate: 60 }
+    })
+
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(
+        `Failed to fetch post header data: ${error.message} (${response.status})`
+      )
+    }
+
+    const { data } = await response.json()
+    const title = data?.title ?? defaultPostHeaderData.title
+    const description = data?.description ?? defaultPostHeaderData.description
+
+    return { title, description }
+  } catch (err: any) {
+    console.error(`Failed to fetch post header data: ${err.message}`)
+    return defaultPostHeaderData
+  }
+}
+
 export async function fetchPostFromCrm(slug: string): Promise<POST> {
   try {
     const response = await fetch(

@@ -74,22 +74,25 @@ export const ProjectCard = ({
         <section className='py-2'>
           <div className='flex items-center justify-between'>
             {/* project highlights modal */}
-            {showHighlight ? (
-              project.highlights && (
-                <ProjectHighlightsModal
-                  modalTitle={'Highlights for ' + project.title}
-                  highlights={project.highlights}
-                />
-              )
-            ) : (
-              <ClickSpark>
-                <Link href={`/projects/#project-${id}`}>
-                  <Button className='cursor-pointer' variant={'outline'}>
-                    Show Details <EyeIcon />
-                  </Button>
-                </Link>
-              </ClickSpark>
-            )}
+            <div>
+              {showHighlight ? (
+                project.highlights &&
+                project.highlights.length > 0 && (
+                  <ProjectHighlightsModal
+                    modalTitle={'Highlights for ' + project.title}
+                    highlights={project.highlights}
+                  />
+                )
+              ) : (
+                <ClickSpark>
+                  <Link href={`/projects/#project-${id}`}>
+                    <Button className='cursor-pointer' variant={'outline'}>
+                      Show Details <EyeIcon />
+                    </Button>
+                  </Link>
+                </ClickSpark>
+              )}
+            </div>
 
             {/* site links */}
             <div className='flex gap-4 text-sm text-(--muted-foreground)'>

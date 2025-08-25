@@ -3,7 +3,7 @@ import { BlogPosts } from '@/components/post'
 const PostsPage = async () => {
   return (
     <>
-      <BlogPosts title={'Posts'} />
+      <BlogPosts title={'Blogs'} />
     </>
   )
 }

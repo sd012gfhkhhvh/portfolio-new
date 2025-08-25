@@ -27,10 +27,10 @@ export default async function Page({
   if (!post) {
     return (
       <div className='flex min-h-[400px] flex-col items-center justify-center text-center'>
-        <h1 className='mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100'>
+        <h1 className='mb-2 text-2xl font-bold text-(--foreground)'>
           Post Not Found
         </h1>
-        <p className='mb-4 text-gray-600 dark:text-gray-400'>
+        <p className='mb-4 text-(--muted-foreground)'>
           The blog post you're looking for doesn't exist.
         </p>
         <BackButton />
@@ -44,17 +44,17 @@ export default async function Page({
     <article className='max-w-none'>
       {/* Header Section */}
       <header className='mb-8'>
-        <div className='mt-6 mb-6 text-lg sm:mt-0 sm:text-xl'>
+        <div className='mt-6 mb-6 text-lg sm:mt-0'>
           <BackButton />
         </div>
 
         {/* Title */}
-        <h1 className='mb-6 text-3xl leading-tight font-bold text-gray-900 md:text-4xl dark:text-gray-100'>
+        <h1 className='mb-6 text-3xl leading-tight font-bold text-(--foreground) md:text-4xl'>
           {metadata?.title}
         </h1>
 
         {/* Metadata Row */}
-        <div className='mb-6 flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400'>
+        <div className='mb-6 flex flex-wrap items-center gap-4 text-sm text-(--muted-foreground) sm:text-base'>
           {/* Author */}
           {metadata?.author && (
             <div className='flex items-center gap-1.5'>
@@ -90,13 +90,15 @@ export default async function Page({
         {/* Tags */}
         {metadata?.tags && metadata.tags.length > 0 && (
           <div className='mb-6 flex items-center gap-2'>
-            <Tag className='h-4 w-4 text-gray-500' />
+            <span>
+              <Tag className='h-4 w-4 text-(--muted-foreground)' />
+            </span>
             <div className='flex flex-wrap gap-2'>
               {metadata.tags.map((tag, index) => (
                 <Badge
                   key={index}
                   variant='secondary'
-                  className='bg-gray-100 px-2 py-1 text-xs transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+                  className='bg-(--navbar-background) px-2 py-1 text-xs transition-colors'
                 >
                   {tag}
                 </Badge>
@@ -110,21 +112,22 @@ export default async function Page({
       </header>
 
       {/* Content */}
-      <div className='prose prose-gray dark:prose-invert prose-lg max-w-none'>
+      <div className='prose lg:prose-lg dark:prose-invert prose-pre:bg-(--navbar-background) max-w-none'>
         <MDXComponent source={content} />
       </div>
 
       {/* Footer */}
       <footer className='mt-12 border-t border-gray-200 pt-8 dark:border-gray-800'>
-        <div className='flex items-center justify-between text-sm text-gray-500 dark:text-gray-400'>
-          <div className='flex items-center gap-4'>
+        <div className='flex flex-col gap-4 text-sm text-(--muted-foreground) sm:flex-row sm:items-center sm:justify-between'>
+          <div className='flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4'>
             {metadata?.author && <span>Written by {metadata.author}</span>}
             {metadata?.date && (
               <span>Published on {formatDate(metadata.date)}</span>
             )}
           </div>
-
-          <BackButton />
+          <div className='self-end text-lg sm:self-auto'>
+            <BackButton />
+          </div>
         </div>
       </footer>
     </article>

@@ -149,7 +149,9 @@ export async function getProjects(): Promise<PROJECTS> {
         githubLink: project.githubLink,
         liveLink: project?.liveLink,
         highlights: project?.highlights,
-        logoLink: process.env.BASE_URI + project.logo.formats.thumbnail.url
+        logoLink:
+          project.logo &&
+          process.env.BASE_URI + project.logo.formats.thumbnail.url
       }
     })
 

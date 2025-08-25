@@ -1,18 +1,22 @@
-import { getAllPosts } from '@/lib/data/post'
+import { getAllPosts, getPostHeaderData } from '@/lib/data/post'
 import { BlogPostCard } from './post-card'
 import { CustomBoxReveal } from './custom-boxreveal'
 
 export const BlogPosts = async ({
   limit = 10,
-  intro = true,
+  isIntro = true,
   title = 'Posts'
 }: {
   limit?: number
-  intro?: boolean
+  isIntro?: boolean
   title: string
 }) => {
   const postMetadataList = await getAllPosts({ limit })
-  
+  const postHeaderData = await getPostHeaderData()
+
+  title = title || postHeaderData?.title || 'Posts'
+  const description = postHeaderData?.description || ''
+
   return (
     <main className='w-full py-4'>
       <CustomBoxReveal>
@@ -21,11 +25,10 @@ export const BlogPosts = async ({
         </h2>
       </CustomBoxReveal>
       {/* intro */}
-      {intro && (
+      {isIntro && (
         <CustomBoxReveal>
           <p className='py-2 text-left text-(--muted-foreground) sm:mx-auto sm:py-4 sm:text-lg'>
-            I share my thoughts and insights on technology and personal
-            development through my writing.
+            {description}
           </p>
         </CustomBoxReveal>
       )}

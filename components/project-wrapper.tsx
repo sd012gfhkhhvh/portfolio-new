@@ -8,13 +8,13 @@ export const ProjectWrapper = async ({
   showStack = true,
   showDescription = true,
   showHighlight = true,
-  otherProjects = true
+  showOtherProjects = true
 }: {
   showIntro?: boolean
   showStack?: boolean
   showDescription?: boolean
   showHighlight?: boolean
-  otherProjects?: boolean
+  showOtherProjects?: boolean
 }) => {
   const projectMetaData = await getProjectMetadata()
 
@@ -44,7 +44,7 @@ export const ProjectWrapper = async ({
           showStack={showStack}
           showDescription={showDescription}
           showHighlight={showHighlight}
-          otherProjects={otherProjects}
+          showOtherProjects={showOtherProjects}
         />
       </Suspense>
     </main>

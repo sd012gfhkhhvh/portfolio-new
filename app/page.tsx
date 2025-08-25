@@ -20,7 +20,7 @@ export default async function Home() {
         <Skills />
         <section className='w-full'>
           <ProjectWrapper
-            otherProjects={false}
+            showOtherProjects={false}
             showIntro={false}
             showDescription={false}
             showStack={true}
@@ -37,7 +37,7 @@ export default async function Home() {
           </div>
         </section>
         <section className='mb-6 w-full'>
-          <BlogPosts title='Recent Posts' limit={5} intro={false} />
+          <BlogPosts title='Recent Posts' limit={5} isIntro={false} />
           <div className='flex justify-center'>
             <Link
               href={'/posts'}

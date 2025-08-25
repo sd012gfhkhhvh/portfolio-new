@@ -6,24 +6,30 @@ export const Projects = async ({
   showStack = true,
   showDescription = true,
   showHighlight = true,
-  otherProjects = true
+  projectsToShow = 3,
+  showOtherProjects = true
 }: {
   showStack?: boolean
   showDescription?: boolean
   showHighlight?: boolean
-  otherProjects?: boolean
+  projectsToShow?: number
+  showOtherProjects?: boolean
 }) => {
   const projects = await getProjects()
 
-  if (!projects) {
+  if (!projects || projects.length === 0) {
     return <div>Projects not found!</div>
   }
+
+  const mainProjects = projects.slice(0, projectsToShow) // Show only first 3 projects
+  const otherProjects =
+    projects.length > projectsToShow ? projects.slice(projectsToShow) : []
 
   return (
     <div>
       {/* Project card */}
-      <section className='grid grid-cols-1 gap-4'>
-        {projects.map((project, index) => (
+      <section className='grid grid-cols-1 gap-4 py-4'>
+        {mainProjects.map((project, index) => (
           <ProjectCard
             key={index}
             id={index + 1}
@@ -35,7 +41,7 @@ export const Projects = async ({
         ))}
       </section>
       {/* other projects */}
-      {otherProjects && <OtherProjects />}
+      {showOtherProjects && <OtherProjects projects={otherProjects} />}
     </div>
   )
 }
